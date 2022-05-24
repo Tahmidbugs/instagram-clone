@@ -8,15 +8,27 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from "react-native";
-
+import firebase from "firebase";
 const Header = () => {
   const navigation = useNavigation();
+
+  const handleSignOut = async () => {
+    try {
+      await firebase.auth().signOut().then();
+      console.log("signedout");
+    } catch {
+      console.log(error);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
-      <Image
-        style={styles.logo}
-        source={require("../../assets/header-logo.png")}
-      />
+      <TouchableOpacity onPress={handleSignOut}>
+        <Image
+          style={styles.logo}
+          source={require("../../assets/header-logo.png")}
+        />
+      </TouchableOpacity>
       <View style={styles.iconsContainer}>
         <TouchableOpacity onPress={() => navigation.navigate("PostScreen")}>
           <Image

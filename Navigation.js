@@ -6,27 +6,34 @@ import PostScreen from "./screens/PostScreen";
 import InProgress from "./screens/InProgress";
 import LoginScreen from "./screens/LoginScreen";
 import Registration from "./screens/Registration";
+const Stack = createNativeStackNavigator();
 
-const Navigation = () => {
-  const Stack = createNativeStackNavigator();
+const screenOptions = {
+  headerShown: false,
+};
 
-  const screenOptions = {
-    headerShown: false,
-  };
+export const SignedInStack = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={screenOptions}
-        initialRouteName="LoginScreen"
-      >
+      <Stack.Navigator screenOptions={screenOptions} initialRouteName="Home">
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="PostScreen" component={PostScreen} />
         <Stack.Screen name="InProgress" component={InProgress} />
-        <Stack.Screen name="LoginScreen" component={LoginScreen} />
-        <Stack.Screen name="Registration" component={Registration} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
 
-export default Navigation;
+export const SignedOutStack = () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={screenOptions}
+        initialRouteName="Registration"
+      >
+        <Stack.Screen name="Registration" component={Registration} />
+        <Stack.Screen name="LoginScreen" component={LoginScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};

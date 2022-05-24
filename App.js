@@ -8,6 +8,7 @@ import PostScreen from "./screens/PostScreen";
 import InProgress from "./screens/InProgress";
 import LoginScreen from "./screens/LoginScreen";
 import Registration from "./screens/Registration";
+import AuthNavigation from "./AuthNavigation";
 export default function App() {
-  return <Navigation />;
+  return <AuthNavigation />;
 }
