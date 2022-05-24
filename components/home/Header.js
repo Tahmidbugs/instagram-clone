@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import {
   View,
@@ -9,6 +10,7 @@ import {
 } from "react-native";
 
 const Header = () => {
+  const navigation = useNavigation();
   return (
     <SafeAreaView style={styles.container}>
       <Image
@@ -16,7 +18,7 @@ const Header = () => {
         source={require("../../assets/header-logo.png")}
       />
       <View style={styles.iconsContainer}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("PostScreen")}>
           <Image
             source={{
               uri: "https://img.icons8.com/fluency-systems-regular/60/ffffff/plus-2-math.png",
@@ -24,7 +26,7 @@ const Header = () => {
             style={styles.icon}
           />
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("InProgress")}>
           <Image
             source={{
               uri: "https://img.icons8.com/fluency-systems-regular/60/ffffff/like--v1.png",
@@ -32,7 +34,7 @@ const Header = () => {
             style={styles.icon}
           />
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("InProgress")}>
           <View style={styles.unreadbadge}>
             <Text style={styles.unreadtext}>9</Text>
           </View>

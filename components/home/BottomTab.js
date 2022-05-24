@@ -1,15 +1,17 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
 
 const BottomTab = () => {
   const [activeTab, setActiveTab] = React.useState("Home");
+  const navigation = useNavigation();
   return (
     <View style={{ color: "black", margin: 20, flexDirection: "row" }}>
       {bottomTabIcons.map((icon, index) => (
         <TouchableOpacity
           key={index}
           onPress={() => {
-            setActiveTab(icon.name);
+            navigation.navigate("InProgress");
           }}
         >
           <Image

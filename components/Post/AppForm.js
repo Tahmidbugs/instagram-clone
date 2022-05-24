@@ -12,6 +12,8 @@ import {
 import { Formik } from "formik";
 import { Divider } from "react-native-paper";
 import * as Yup from "yup";
+import SharingOptions from "./SharingOptions";
+import { useNavigation } from "@react-navigation/native";
 
 const AppForm = () => {
   const validationSchema = Yup.object().shape({
@@ -24,11 +26,16 @@ const AppForm = () => {
   const [thumbnail, setThumbnail] = React.useState(
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtL02vlAAqK0Yg64rtLyh4wRoVws7KlWF2eoDVa6Zu-o653gFuZJjMIVc-L4tH57d2pck&usqp=CAU"
   );
+  const navigation = useNavigation();
   return (
     <View>
       <Formik
         initialValues={{ image: "", caption: "" }}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={(values) => {
+          console.log(values);
+          console.log("Your post was successful 🎉");
+          navigation.navigate("Home");
+        }}
         validationSchema={validationSchema}
         validateOnMount={true}
       >
@@ -77,20 +84,23 @@ const AppForm = () => {
               placeholder="Enter Image URL"
               placeholderTextColor={"grey"}
               style={{
-                height: 30,
+                height: 50,
                 color: "white",
                 marginTop: 20,
                 borderTopColor: "grey",
                 borderTopWidth: 2,
+                paddingTop: 20,
               }}
               onChangeText={handleChange("image")}
               onBlur={handleBlur("image")}
               value={values.image}
               onChange={(event) => setThumbnail(event.nativeEvent.text)}
+              returnKeyType="done"
             />
             {errors.image && (
               <Text style={{ fontSize: 10, color: "red" }}>{errors.image}</Text>
             )}
+            <SharingOptions />
             <Button title="Share" disabled={!isValid} onPress={handleSubmit} />
           </>
         )}
