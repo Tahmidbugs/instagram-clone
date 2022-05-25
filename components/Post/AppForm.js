@@ -1,21 +1,12 @@
 import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-  SafeAreaView,
-  Button,
-  TextInput,
-} from "react-native";
+import { View, Text, Image, Button, TextInput } from "react-native";
 import { Formik } from "formik";
-import { Divider } from "react-native-paper";
 import * as Yup from "yup";
 import SharingOptions from "./SharingOptions";
 import { useNavigation } from "@react-navigation/native";
+import firebase from "../../firebase";
 
-const AppForm = () => {
+const AppForm = ({ navigation }) => {
   const validationSchema = Yup.object().shape({
     image: Yup.string().url().required("Must upload a URL"),
     caption: Yup.string().max(
@@ -23,18 +14,61 @@ const AppForm = () => {
       "Caption must not be over 2000 characters!"
     ),
   });
+
   const [thumbnail, setThumbnail] = React.useState(
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtL02vlAAqK0Yg64rtLyh4wRoVws7KlWF2eoDVa6Zu-o653gFuZJjMIVc-L4tH57d2pck&usqp=CAU"
   );
-  const navigation = useNavigation();
+
+  const [currentLoggedInUser, setCurrentLoggedInUser] = React.useState(null);
+
+  const getUserName = () => {
+    const user = firebase.auth().currentUser;
+    const db = firebase.firestore();
+    const unsubscribe = db
+      .collection("users")
+      .where("owner_uid", "==", user.uid)
+      .limit(1)
+      .onSnapshot((snapshot) => {
+        snapshot.docs.map((doc) => {
+          console.log("snapshotted forms");
+          setCurrentLoggedInUser({
+            username: doc.data().username,
+            profilePicture: doc.data().profile_picture,
+          });
+        });
+      });
+    console.log("user logged in:", currentLoggedInUser);
+
+    return unsubscribe;
+  };
+
+  React.useEffect(getUserName, []);
+
+  const UploadPostToFirebase = async (imageURL, caption) => {
+    const db = firebase.firestore();
+    db.collection("users")
+      .doc(firebase.auth().currentUser.email)
+      .collection("posts")
+      .add({
+        imageURL: imageURL,
+        user: currentLoggedInUser.username,
+        profilepic: currentLoggedInUser.profilePicture,
+        owner_uid: firebase.auth().currentUser.uid,
+        caption: caption,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        likes: 0,
+        likes_by_users: [],
+        comments: [],
+      })
+      .then(navigation.goBack());
+  };
+
   return (
     <View>
       <Formik
         initialValues={{ image: "", caption: "" }}
         onSubmit={(values) => {
-          console.log(values);
-          console.log("Your post was successful 🎉");
-          navigation.navigate("Home");
+          UploadPostToFirebase(values.image, values.caption);
         }}
         validationSchema={validationSchema}
         validateOnMount={true}

@@ -46,9 +46,9 @@ const Forms = ({ navigation }) => {
         .auth()
         .createUserWithEmailAndPassword(email, password);
       const db = firebase.firestore();
-      db.collection("users").add({
+      db.collection("users").doc(authUser.user.email).set({
         email: email,
-        owner_id: authUser.user.uid,
+        owner_uid: authUser.user.uid,
         username: username,
         profile_picture:
           "https://storage.googleapis.com/ares-profile-pictures/hd/no__strings-143f671b112b152e6b012e1acf45a1b7_hd.jpg",

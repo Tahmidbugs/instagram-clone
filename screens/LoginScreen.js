@@ -44,9 +44,7 @@ const Forms = ({ navigation }) => {
 
   const handleLogIn = async (email, password) => {
     try {
-      const authUser = await firebase
-        .auth()
-        .signInWithEmailAndPassword(email, password);
+      await firebase.auth().signInWithEmailAndPassword(email, password);
 
       console.log("Signed in!");
     } catch (error) {

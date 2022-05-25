@@ -3,21 +3,19 @@ import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import AppForm from "./AppForm";
 
-const UploadPost = () => {
+const UploadPost = ({ navigation }) => {
   return (
     <View>
-      <Header />
-      <AppForm />
+      <Header navigation={navigation} />
+      <AppForm navigation={navigation} />
     </View>
   );
 };
 
-const PostForm = () => {};
-const Header = () => {
-  const navigation = useNavigation();
+const Header = ({ navigation }) => {
   return (
     <View style={styles.headerContainer}>
-      <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+      <TouchableOpacity onPress={() => navigation.goBack()}>
         <Image
           source={{
             uri: "https://img.icons8.com/ios-glyphs/90/ffffff/back.png",

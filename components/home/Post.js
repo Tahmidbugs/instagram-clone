@@ -47,7 +47,7 @@ const PostReactions = ({ likes, username, caption, comments }) => (
     <Text
       style={{
         color: "white",
-        fontWeight: "800",
+        fontWeight: "700",
         marginRight: 5,
         marginBottom: 5,
       }}
@@ -117,7 +117,7 @@ const Postheader = ({ posterPic, posterUsername }) => {
     <View style={styles.HeaderContainer}>
       <View style={{ flexDirection: "row", alignItems: "center" }}>
         <TouchableOpacity>
-          <Image source={posterPic} style={styles.posterImage} />
+          <Image source={{ uri: posterPic }} style={styles.posterImage} />
         </TouchableOpacity>
         <TouchableOpacity>
           <Text style={styles.posterUsername}>{posterUsername}</Text>
