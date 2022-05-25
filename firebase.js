@@ -13,6 +13,7 @@ const firebaseConfig = {
 
 const auth = firebase.auth();
 const firestore = firebase.firestore();
+const storage = firebase.storage();
 
 export { auth };
 export { firestore };

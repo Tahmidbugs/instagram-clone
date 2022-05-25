@@ -1,17 +1,26 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import { MaterialCommunityIcons, FontAwesome } from "@expo/vector-icons";
 import firebase from "../../firebase";
 const Post = ({ post }) => {
   return (
     <View>
       <Postheader posterPic={post.profilepic} posterUsername={post.user} />
-      <Image
-        source={{
-          uri: post.imageURL,
-        }}
-        style={styles.postedImage}
-      />
+      <ScrollView minimumZoomScale={1} maximumZoomScale={5}>
+        <Image
+          source={{
+            uri: post.imageURL,
+          }}
+          style={styles.postedImage}
+        />
+      </ScrollView>
       <PostReact post={post} />
       <PostReactions
         likes_by_users={post.likes_by_users}
