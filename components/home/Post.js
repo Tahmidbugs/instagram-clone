@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons, FontAwesome } from "@expo/vector-icons";
-
+import firebase from "../../firebase";
 const Post = ({ post }) => {
   return (
     <View>
@@ -12,9 +12,9 @@ const Post = ({ post }) => {
         }}
         style={styles.postedImage}
       />
-      <PostReact />
+      <PostReact post={post} />
       <PostReactions
-        likes={post.likes}
+        likes_by_users={post.likes_by_users}
         username={post.user}
         caption={post.caption}
         comments={post.comments}
@@ -38,10 +38,10 @@ const Comments = ({ posts }) => (
   </>
 );
 
-const PostReactions = ({ likes, username, caption, comments }) => (
+const PostReactions = ({ likes_by_users, username, caption, comments }) => (
   <View style={{ marginLeft: 10 }}>
     <Text style={{ color: "white", fontWeight: "600", marginBottom: 5 }}>
-      {likes} likes
+      {likes_by_users.length} likes
     </Text>
 
     <Text
@@ -67,15 +67,33 @@ const PostReactions = ({ likes, username, caption, comments }) => (
   </View>
 );
 
-const PostReact = () => {
+const PostReact = ({ post }) => {
   const [like, setLike] = React.useState(false);
+  const handleLikes = () => {
+    setLike(like ? false : true);
+    const db = firebase.firestore();
+    db.collection("users")
+      .doc(post.owner_email)
+      .collection("posts")
+      .doc(post.id)
+      .update({
+        likes_by_users: !like
+          ? firebase.firestore.FieldValue.arrayUnion(
+              firebase.auth().currentUser.email
+            )
+          : firebase.firestore.FieldValue.arrayRemove(
+              firebase.auth().currentUser.email
+            ),
+      })
+      .then(() => console.log("updated"))
+      .catch((error) => {
+        console.log("error updating likes: ", error);
+      });
+  };
   return (
     <View style={{ flexDirection: "row", marginTop: 10, marginLeft: 10 }}>
       <View style={{ marginRight: "auto", flexDirection: "row" }}>
-        <TouchableOpacity
-          onPress={() => setLike(like ? false : true)}
-          style={{ marginRight: 12 }}
-        >
+        <TouchableOpacity onPress={handleLikes} style={{ marginRight: 12 }}>
           {!like && (
             <MaterialCommunityIcons
               name="heart-outline"
