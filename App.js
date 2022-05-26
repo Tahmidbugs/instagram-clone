@@ -10,6 +10,7 @@ import LoginScreen from "./screens/LoginScreen";
 import Registration from "./screens/Registration";
 import AuthNavigation from "./AuthNavigation";
 import MakeProfile from "./screens/MakeProfile";
+
 export default function App() {
   return <AuthNavigation />;
 }

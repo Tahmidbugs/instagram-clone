@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import Users from "../../data/Users";
+import { AntDesign } from "@expo/vector-icons";
 const Stories = ({ profilePicture, username }) => {
   console.log("username is:", username);
   console.log("profilepic is:", profilePicture);
@@ -18,6 +19,23 @@ const Stories = ({ profilePicture, username }) => {
               source={{ uri: profilePicture }}
               style={[styles.profile, { borderWidth: 0 }]}
             />
+            <TouchableOpacity
+              style={{
+                backgroundColor: "#1BA0F6",
+                height: 28,
+                width: 28,
+                borderRadius: 15,
+                position: "absolute",
+                right: 5,
+                bottom: 4,
+                borderWidth: 3,
+                borderColor: "black",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <AntDesign name="plus" size={15} color="white" />
+            </TouchableOpacity>
           </TouchableOpacity>
           <Text style={styles.username}>
             {username.length > 11 ? username.slice(0, 10) + ".." : username}

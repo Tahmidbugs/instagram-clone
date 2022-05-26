@@ -20,7 +20,14 @@ const SharingOptions = () => {
           paddingVertical: 15,
         }}
       >
-        <Text style={{ color: "grey", fontWeight: "500", fontSize: 16 }}>
+        <Text
+          style={{
+            color: "grey",
+            fontWeight: "500",
+            fontSize: 16,
+            marginLeft: 10,
+          }}
+        >
           Tag People
         </Text>
         <AntDesign name="right" size={24} color="grey" />
@@ -34,7 +41,14 @@ const SharingOptions = () => {
           paddingVertical: 15,
         }}
       >
-        <Text style={{ color: "grey", fontWeight: "500", fontSize: 16 }}>
+        <Text
+          style={{
+            color: "grey",
+            fontWeight: "500",
+            fontSize: 16,
+            marginLeft: 10,
+          }}
+        >
           Add location
         </Text>
         <AntDesign name="right" size={24} color="grey" />
@@ -48,7 +62,14 @@ const SharingOptions = () => {
           paddingVertical: 15,
         }}
       >
-        <Text style={{ color: "grey", fontWeight: "500", fontSize: 16 }}>
+        <Text
+          style={{
+            color: "grey",
+            fontWeight: "500",
+            fontSize: 16,
+            marginLeft: 10,
+          }}
+        >
           Add fundraiser
         </Text>
         <AntDesign name="right" size={24} color="grey" />
@@ -62,7 +83,14 @@ const SharingOptions = () => {
           paddingVertical: 15,
         }}
       >
-        <Text style={{ color: "grey", fontWeight: "500", fontSize: 16 }}>
+        <Text
+          style={{
+            color: "grey",
+            fontWeight: "500",
+            fontSize: 16,
+            marginLeft: 10,
+          }}
+        >
           Share on Facebook
         </Text>
         <AntDesign name="right" size={24} color="grey" />

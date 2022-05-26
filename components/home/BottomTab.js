@@ -5,7 +5,7 @@ import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
 const BottomTab = ({ profilePicture }) => {
   const [activeTab, setActiveTab] = React.useState("Home");
   const navigation = useNavigation();
-  console.log("Profile sent: ", profilePicture);
+
   return (
     <View style={{ color: "black", margin: 20, flexDirection: "row" }}>
       {bottomTabIcons.map((icon, index) => (

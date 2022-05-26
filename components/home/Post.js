@@ -9,7 +9,11 @@ import {
 } from "react-native";
 import { MaterialCommunityIcons, FontAwesome } from "@expo/vector-icons";
 import firebase from "../../firebase";
+import { useNavigation } from "@react-navigation/native";
 const Post = ({ post }) => {
+  const handleCommentSectionCall = () =>
+    navigation.navigate("CommentSection", post);
+  const navigation = useNavigation();
   return (
     <View>
       <Postheader posterPic={post.profilepic} posterUsername={post.user} />
@@ -21,14 +25,15 @@ const Post = ({ post }) => {
           style={styles.postedImage}
         />
       </ScrollView>
-      <PostReact post={post} />
+      <PostReact post={post} commentSectionCalled={handleCommentSectionCall} />
       <PostReactions
         likes_by_users={post.likes_by_users}
         username={post.user}
         caption={post.caption}
         comments={post.comments}
+        commentSectionCalled={handleCommentSectionCall}
       />
-      <Comments posts={post} />
+      {/* <Comments posts={post} /> */}
     </View>
   );
 };
@@ -47,7 +52,13 @@ const Comments = ({ posts }) => (
   </>
 );
 
-const PostReactions = ({ likes_by_users, username, caption, comments }) => (
+const PostReactions = ({
+  likes_by_users,
+  username,
+  caption,
+  comments,
+  commentSectionCalled,
+}) => (
   <View style={{ marginLeft: 10 }}>
     <Text style={{ color: "white", fontWeight: "600", marginBottom: 5 }}>
       {likes_by_users.length} likes
@@ -65,10 +76,10 @@ const PostReactions = ({ likes_by_users, username, caption, comments }) => (
       <Text style={{ fontWeight: "500" }}> {caption}</Text>
     </Text>
 
-    <TouchableOpacity>
+    <TouchableOpacity onPress={commentSectionCalled}>
       {comments.length > 0 && (
         <Text style={{ color: "grey" }}>
-          View {comments.length > 1 ? "all" : ""} {comments.length}
+          View{comments.length > 1 ? "all" : ""} {comments.length}
           {comments.length > 1 ? " comments" : " comment"}
         </Text>
       )}
@@ -76,7 +87,7 @@ const PostReactions = ({ likes_by_users, username, caption, comments }) => (
   </View>
 );
 
-const PostReact = ({ post }) => {
+const PostReact = ({ post, commentSectionCalled }) => {
   const [like, setLike] = React.useState(false);
   const handleLikes = () => {
     setLike(like ? false : true);
@@ -115,7 +126,7 @@ const PostReact = ({ post }) => {
           )}
         </TouchableOpacity>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={commentSectionCalled}>
           <Image
             source={{
               uri: "https://img.icons8.com/material-outlined/60/ffffff/filled-topic.png",

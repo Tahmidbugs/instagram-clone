@@ -10,6 +10,7 @@ import ProfileScreen from "./screens/ProfileScreen";
 import ViewPost from "./screens/ViewPost";
 import MakeProfile from "./screens/MakeProfile";
 import EditProfile from "./screens/EditProfile";
+import CommentSection from "./screens/CommentSection";
 const Stack = createNativeStackNavigator();
 
 const screenOptions = {
@@ -26,6 +27,7 @@ export const SignedInStack = () => {
         <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
         <Stack.Screen name="EditProfile" component={EditProfile} />
         <Stack.Screen name="ViewPost" component={ViewPost} />
+        <Stack.Screen name="CommentSection" component={CommentSection} />
       </Stack.Navigator>
     </NavigationContainer>
   );
