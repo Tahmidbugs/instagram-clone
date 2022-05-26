@@ -93,7 +93,6 @@ const AppForm = ({ navigation }) => {
 
         const imageURL = await imgRef.getDownloadURL();
         setThumbnail(imageURL);
-        console.log(imageURL);
       }
     } catch (error) {
       console.log("error reading image", error);

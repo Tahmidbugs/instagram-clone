@@ -6,6 +6,7 @@ import PostScreen from "./screens/PostScreen";
 import InProgress from "./screens/InProgress";
 import LoginScreen from "./screens/LoginScreen";
 import Registration from "./screens/Registration";
+import ProfileScreen from "./screens/ProfileScreen";
 const Stack = createNativeStackNavigator();
 
 const screenOptions = {
@@ -19,6 +20,7 @@ export const SignedInStack = () => {
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="PostScreen" component={PostScreen} />
         <Stack.Screen name="InProgress" component={InProgress} />
+        <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

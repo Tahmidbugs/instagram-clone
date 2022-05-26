@@ -11,7 +11,7 @@ const BottomTab = () => {
         <TouchableOpacity
           key={index}
           onPress={() => {
-            navigation.navigate("InProgress");
+            navigation.navigate("ProfileScreen");
           }}
         >
           <Image
