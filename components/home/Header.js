@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   icon: {
     width: 30,
     height: 30,
-    marginLeft: 10,
+    marginLeft: 20,
     resizeMode: "contain",
   },
   unreadbadge: {
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     width: 25,
     height: 18,
     borderRadius: 25,
-    left: 20,
+    left: 30,
     bottom: 18,
     zIndex: 100,
     alignItems: "center",

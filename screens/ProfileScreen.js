@@ -6,10 +6,11 @@ import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native";
 import ProfileHeader from "../components/Profile/ProfileHeader";
 import ProfileStats from "../components/Profile/ProfileStats";
 import ProfileBioandEdit from "../components/Profile/ProfileBioandEdit";
-import { version } from "react-dom";
+
+import { useNavigation } from "@react-navigation/native";
 const ProfileScreen = () => {
   const [currentLoggedInUser, setCurrentLoggedInUser] = React.useState(null);
-
+  const navigation = useNavigation();
   const getUserName = () => {
     const user = firebase.auth().currentUser;
     const db = firebase.firestore();
@@ -22,6 +23,8 @@ const ProfileScreen = () => {
           setCurrentLoggedInUser({
             username: doc.data().username,
             profilePicture: doc.data().profile_picture,
+            name: doc.data().name,
+            bio: doc.data().bio,
           });
         });
       });
@@ -52,11 +55,16 @@ const ProfileScreen = () => {
         <>
           <ProfileHeader username={currentLoggedInUser.username} />
           <ProfileStats profilePicture={currentLoggedInUser.profilePicture} />
-          <ProfileBioandEdit />
+          <ProfileBioandEdit
+            name={currentLoggedInUser.name}
+            bio={currentLoggedInUser.bio}
+          />
           <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
             {Posts.map((post, index) => (
               <View style={{ flexDirection: "row" }} key={index}>
-                <TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("ViewPost", post)}
+                >
                   <Image
                     source={{ uri: post.imageURL }}
                     style={{

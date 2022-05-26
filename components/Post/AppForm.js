@@ -42,6 +42,7 @@ const AppForm = ({ navigation }) => {
   React.useEffect(getUserName, []);
 
   const UploadPostToFirebase = async (imageURL, caption) => {
+    console.log(caption);
     const db = firebase.firestore();
     db.collection("users")
       .doc(firebase.auth().currentUser.email)
@@ -130,7 +131,7 @@ const AppForm = ({ navigation }) => {
                     source={{
                       uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtL02vlAAqK0Yg64rtLyh4wRoVws7KlWF2eoDVa6Zu-o653gFuZJjMIVc-L4tH57d2pck&usqp=CAU",
                     }}
-                    style={{ height: 100, width: 100 }}
+                    style={{ height: 100, width: 100, borderRadius: 10 }}
                   />
                 ) : (
                   <Image

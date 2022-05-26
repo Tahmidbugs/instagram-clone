@@ -2,16 +2,17 @@ import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
 
-const BottomTab = () => {
+const BottomTab = ({ profilePicture }) => {
   const [activeTab, setActiveTab] = React.useState("Home");
   const navigation = useNavigation();
+  console.log("Profile sent: ", profilePicture);
   return (
     <View style={{ color: "black", margin: 20, flexDirection: "row" }}>
       {bottomTabIcons.map((icon, index) => (
         <TouchableOpacity
           key={index}
           onPress={() => {
-            navigation.navigate("ProfileScreen");
+            navigation.navigate("InProgress");
           }}
         >
           <Image
@@ -28,6 +29,18 @@ const BottomTab = () => {
           />
         </TouchableOpacity>
       ))}
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("ProfileScreen");
+        }}
+      >
+        <Image
+          source={{
+            uri: profilePicture,
+          }}
+          style={styles.Profile}
+        />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -38,13 +51,13 @@ const styles = StyleSheet.create({
     height: 30,
     marginRight: 50,
   },
-  Profile: (activeTab = "") => ({
+  Profile: {
     width: 30,
     height: 30,
     borderRadius: 15,
-    borderWidth: activeTab === "Profile" ? 2 : 0,
+    borderWidth: 2,
     borderColor: "white",
-  }),
+  },
 });
 
 export default BottomTab;
@@ -72,12 +85,5 @@ const bottomTabIcons = [
       "https://img.icons8.com/fluency-systems-filled/48/ffffff/shopping-bag-full.png",
     inactive:
       "https://img.icons8.com/fluency-systems-regular/48/ffffff/shopping-bag-full.png",
-  },
-  {
-    name: "Profile",
-    active:
-      "https://instagram.ftpa1-2.fna.fbcdn.net/v/t51.2885-19/249865761_119727660487552_7484151078639541787_n.jpg?stp=dst-jpg_s320x320&_nc_ht=instagram.ftpa1-2.fna.fbcdn.net&_nc_cat=104&_nc_ohc=KOJDDmcO_bIAX_vs7dC&edm=ABfd0MgBAAAA&ccb=7-5&oh=00_AT_sbPSGZS1Fqbe9osKVARJy3YDaC8rt3hcDuaV2hh6K4w&oe=6293C255&_nc_sid=7bff83",
-    inactive:
-      "https://instagram.ftpa1-2.fna.fbcdn.net/v/t51.2885-19/249865761_119727660487552_7484151078639541787_n.jpg?stp=dst-jpg_s320x320&_nc_ht=instagram.ftpa1-2.fna.fbcdn.net&_nc_cat=104&_nc_ohc=KOJDDmcO_bIAX_vs7dC&edm=ABfd0MgBAAAA&ccb=7-5&oh=00_AT_sbPSGZS1Fqbe9osKVARJy3YDaC8rt3hcDuaV2hh6K4w&oe=6293C255&_nc_sid=7bff83",
   },
 ];

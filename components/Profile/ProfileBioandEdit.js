@@ -17,7 +17,9 @@ import {
   FontAwesome5,
 } from "@expo/vector-icons";
 import firebase from "../../firebase";
-const ProfileBioandEdit = () => {
+import { useNavigation } from "@react-navigation/native";
+const ProfileBioandEdit = ({ name, bio }) => {
+  const navigation = useNavigation();
   return (
     <View>
       <View style={{ marginTop: 15, marginLeft: 10, marginBottom: 30 }}>
@@ -29,7 +31,7 @@ const ProfileBioandEdit = () => {
             marginBottom: 2,
           }}
         >
-          teds
+          {name}
         </Text>
         <Text
           style={{
@@ -39,17 +41,7 @@ const ProfileBioandEdit = () => {
             marginBottom: 2,
           }}
         >
-          سَمِعْنَا وَأَطَعْنَ
-        </Text>
-        <Text
-          style={{
-            color: "white",
-            fontWeight: "500",
-            fontSize: 15,
-            marginBottom: 2,
-          }}
-        >
-          We hear and we obey
+          {bio}
         </Text>
       </View>
       <View style={{ flexDirection: "row" }}>
@@ -66,6 +58,7 @@ const ProfileBioandEdit = () => {
             justifyContent: "center",
             borderRadius: 5,
           }}
+          onPress={() => navigation.navigate("EditProfile")}
         >
           <Text
             style={{
@@ -210,7 +203,7 @@ const ProfileBioandEdit = () => {
             style={{ marginRight: 150 }}
           />
         </TouchableOpacity>
-        <FontAwesome5 name="user-tag" size={17} color="white" />
+        <FontAwesome5 name="user-tag" size={17} color="grey" />
       </View>
     </View>
   );
