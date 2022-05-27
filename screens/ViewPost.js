@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from "react-native";
+import BottomTab from "../components/home/BottomTab";
 import Post from "../components/home/Post";
 
 const ViewPost = ({ route }) => {
@@ -16,6 +17,9 @@ const ViewPost = ({ route }) => {
     <View style={{ flex: 1, backgroundColor: "black" }}>
       <Header username={route.params.user} />
       <Post post={route.params} />
+      <View style={{ position: "absolute", bottom: 2 }}>
+        <BottomTab />
+      </View>
     </View>
   );
 };

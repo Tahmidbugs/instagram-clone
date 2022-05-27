@@ -17,7 +17,7 @@ import {
   FontAwesome5,
 } from "@expo/vector-icons";
 
-const ProfileHeader = ({ username }) => {
+const ProfileHeader = ({ username, handleModalVisibility }) => {
   console.log(username);
   return (
     <View
@@ -29,7 +29,10 @@ const ProfileHeader = ({ username }) => {
       }}
     >
       <Feather name="lock" size={15} color="white" />
-      <TouchableOpacity style={{ marginHorizontal: 5 }}>
+      <TouchableOpacity
+        style={{ marginHorizontal: 5 }}
+        onPress={handleModalVisibility}
+      >
         <Text style={{ color: "white", fontSize: 24, fontWeight: "800" }}>
           {username}
         </Text>

@@ -2,17 +2,17 @@ import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
 
-const BottomTab = ({ profilePicture }) => {
+const BottomTab = () => {
   const [activeTab, setActiveTab] = React.useState("Home");
   const navigation = useNavigation();
-
   return (
     <View style={{ color: "black", margin: 20, flexDirection: "row" }}>
       {bottomTabIcons.map((icon, index) => (
         <TouchableOpacity
           key={index}
           onPress={() => {
-            navigation.navigate("InProgress");
+            setActiveTab(icon.name);
+            navigation.navigate(icon.navigation);
           }}
         >
           <Image
@@ -29,18 +29,6 @@ const BottomTab = ({ profilePicture }) => {
           />
         </TouchableOpacity>
       ))}
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate("ProfileScreen");
-        }}
-      >
-        <Image
-          source={{
-            uri: profilePicture,
-          }}
-          style={styles.Profile}
-        />
-      </TouchableOpacity>
     </View>
   );
 };
@@ -51,13 +39,13 @@ const styles = StyleSheet.create({
     height: 30,
     marginRight: 50,
   },
-  Profile: {
+  Profile: (activeTab = "") => ({
     width: 30,
     height: 30,
     borderRadius: 15,
-    borderWidth: 2,
+    borderWidth: activeTab === "Profile" ? 2 : 0,
     borderColor: "white",
-  },
+  }),
 });
 
 export default BottomTab;
@@ -68,16 +56,19 @@ const bottomTabIcons = [
     active: "https://img.icons8.com/fluency-systems-filled/144/ffffff/home.png",
     inactive:
       "https://img.icons8.com/fluency-systems-regular/48/ffffff/home.png",
+    navigation: "Home",
   },
   {
     name: "Search",
     active: "https://img.icons8.com/ios-filled/500/ffffff/search--v1.png",
     inactive: "https://img.icons8.com/ios/500/ffffff/search--v1.png",
+    navigation: "SearchScreen",
   },
   {
     name: "Reels",
     active: "https://img.icons8.com/ios-filled/50/ffffff/instagram-reel.png",
     inactive: "https://img.icons8.com/ios/500/ffffff/instagram-reel.png",
+    navigation: "InProgress",
   },
   {
     name: "Shop",
@@ -85,5 +76,14 @@ const bottomTabIcons = [
       "https://img.icons8.com/fluency-systems-filled/48/ffffff/shopping-bag-full.png",
     inactive:
       "https://img.icons8.com/fluency-systems-regular/48/ffffff/shopping-bag-full.png",
+    navigation: "InProgress",
+  },
+  {
+    name: "Profile",
+    active:
+      "https://instagram.ftpa1-2.fna.fbcdn.net/v/t51.2885-19/249865761_119727660487552_7484151078639541787_n.jpg?stp=dst-jpg_s320x320&_nc_ht=instagram.ftpa1-2.fna.fbcdn.net&_nc_cat=104&_nc_ohc=KOJDDmcO_bIAX_vs7dC&edm=ABfd0MgBAAAA&ccb=7-5&oh=00_AT_sbPSGZS1Fqbe9osKVARJy3YDaC8rt3hcDuaV2hh6K4w&oe=6293C255&_nc_sid=7bff83",
+    inactive:
+      "https://instagram.ftpa1-2.fna.fbcdn.net/v/t51.2885-19/249865761_119727660487552_7484151078639541787_n.jpg?stp=dst-jpg_s320x320&_nc_ht=instagram.ftpa1-2.fna.fbcdn.net&_nc_cat=104&_nc_ohc=KOJDDmcO_bIAX_vs7dC&edm=ABfd0MgBAAAA&ccb=7-5&oh=00_AT_sbPSGZS1Fqbe9osKVARJy3YDaC8rt3hcDuaV2hh6K4w&oe=6293C255&_nc_sid=7bff83",
+    navigation: "ProfileScreen",
   },
 ];

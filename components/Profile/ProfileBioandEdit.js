@@ -18,7 +18,7 @@ import {
 } from "@expo/vector-icons";
 import firebase from "../../firebase";
 import { useNavigation } from "@react-navigation/native";
-const ProfileBioandEdit = ({ name, bio }) => {
+const ProfileBioandEdit = ({ name, bio, sendPicture }) => {
   const navigation = useNavigation();
   return (
     <View>
@@ -58,7 +58,7 @@ const ProfileBioandEdit = ({ name, bio }) => {
             justifyContent: "center",
             borderRadius: 5,
           }}
-          onPress={() => navigation.navigate("EditProfile")}
+          onPress={() => navigation.navigate("EditProfile", sendPicture)}
         >
           <Text
             style={{

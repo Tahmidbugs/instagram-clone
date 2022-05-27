@@ -5,19 +5,16 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
-  SafeAreaView,
   TextInput,
-  Button,
 } from "react-native";
-import Post from "../components/home/Post";
-import LoginScreen from "./LoginScreen";
+
 import { Formik } from "formik";
 import firebase from "../firebase";
 import { MaterialCommunityIcons, FontAwesome } from "@expo/vector-icons";
 
 const CommentSection = ({ route, navigation }) => {
   const [currentLoggedInUser, setCurrentLoggedInUser] = React.useState(null);
-
+  const [AddedComment, setAddedComment] = React.useState([]);
   const getUserName = () => {
     const user = firebase.auth().currentUser;
     const db = firebase.firestore();
@@ -35,7 +32,7 @@ const CommentSection = ({ route, navigation }) => {
           });
         });
       });
-    console.log("re rendered");
+
     return unsubscribe;
   };
   React.useEffect(() => {
@@ -48,11 +45,13 @@ const CommentSection = ({ route, navigation }) => {
         <>
           <Header navigation={navigation} />
           <Caption post={route.params} />
-          <Comments post={route.params} />
+          <Comments post={route.params} AddedComment={AddedComment} />
           <AddComment
             post={route.params}
             currentLoggedInUser={currentLoggedInUser}
             navigation={navigation}
+            AddedComment={AddedComment}
+            setAddedComment={setAddedComment}
           />
         </>
       )}
@@ -60,7 +59,13 @@ const CommentSection = ({ route, navigation }) => {
   );
 };
 
-const AddComment = ({ post, currentLoggedInUser, navigation }) => {
+const AddComment = ({
+  post,
+  currentLoggedInUser,
+  navigation,
+  setAddedComment,
+  AddedComment,
+}) => {
   //   console.log(currentLoggedInUser.profilePicture);
   const UploadCommentToFirebase = (post, comment) => {
     console.log(comment);
@@ -79,15 +84,26 @@ const AddComment = ({ post, currentLoggedInUser, navigation }) => {
       .update({
         comments: firebase.firestore.FieldValue.arrayUnion(obj),
       });
+    setAddedComment((prev) => {
+      return [
+        ...prev,
+        {
+          profilePicture: currentLoggedInUser.profilePicture,
+          comment: comment,
+          username: currentLoggedInUser.username,
+        },
+      ];
+    });
   };
 
   return (
     <View>
       <Formik
         initialValues={{ comment: "" }}
-        onSubmit={(values) => {
+        onSubmit={(values, actions) => {
           UploadCommentToFirebase(post, values.comment);
-          navigation.replace("CommentSection", post);
+          console.log(AddedComment);
+          actions.resetForm();
         }}
         validateOnMount={true}
       >
@@ -167,12 +183,23 @@ const AddComment = ({ post, currentLoggedInUser, navigation }) => {
     </View>
   );
 };
-const Comments = ({ post }) => (
+const Comments = ({ post, AddedComment }) => (
   <>
-    {!post.comments.length && (
-      <Text style={{ color: "grey" }}>No comments on this post</Text>
+    {!post.comments.length && !AddedComment.length && (
+      <View
+        style={{
+          height: 200,
+          width: "100%",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Text style={{ color: "grey", fontWeight: "700", fontSize: 20 }}>
+          No comments on this post
+        </Text>
+      </View>
     )}
-    {post.comments.length > 0 && (
+    {(post.comments.length > 0 || AddComment.length > 0) && (
       <View>
         {post.comments.map((comment, index) => (
           <View
@@ -217,7 +244,64 @@ const Comments = ({ post }) => (
                   fontSize: 10,
                 }}
               >
-                15s<Text>{"     "}Reply</Text>
+                Just Now {"  "}
+                <Text>Reply</Text>
+              </Text>
+            </View>
+            <TouchableOpacity style={{ marginLeft: "auto", marginRight: 20 }}>
+              <MaterialCommunityIcons
+                name="heart-outline"
+                size={14}
+                color="grey"
+              />
+            </TouchableOpacity>
+          </View>
+        ))}
+        {AddedComment.map((comment, index) => (
+          <View
+            key={index}
+            style={{
+              flexDirection: "row",
+              marginVertical: 20,
+              marginLeft: 10,
+              alignItems: "center",
+            }}
+          >
+            <Image
+              source={{ uri: comment.profilePicture }}
+              style={{ height: 40, width: 40, borderRadius: 20 }}
+            />
+            <View>
+              <Text
+                style={{
+                  color: "white",
+                  fontWeight: "700",
+                  marginLeft: 10,
+                  marginBottom: 5,
+                  flexWrap: "wrap",
+                }}
+              >
+                {comment.username}
+                <Text
+                  style={{
+                    fontWeight: "500",
+                  }}
+                >
+                  {"  "}
+                  {comment.comment}
+                </Text>
+              </Text>
+              <Text
+                style={{
+                  color: "grey",
+                  fontWeight: "400",
+                  marginLeft: 10,
+                  marginBottom: 5,
+                  fontSize: 10,
+                }}
+              >
+                Just Now {"  "}
+                <Text>Reply</Text>
               </Text>
             </View>
             <TouchableOpacity style={{ marginLeft: "auto", marginRight: 20 }}>

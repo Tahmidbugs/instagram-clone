@@ -14,10 +14,8 @@ import firebase from "../firebase";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { useNavigation } from "@react-navigation/native";
-const EditProfile = ({ navigation }) => {
-  const [thumbnail, setThumbnail] = React.useState(
-    "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"
-  );
+const EditProfile = ({ navigation, route }) => {
+  const [thumbnail, setThumbnail] = React.useState(route.params);
 
   const selectImage = async () => {
     try {
