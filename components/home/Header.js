@@ -12,15 +12,6 @@ import firebase from "firebase";
 const Header = () => {
   const navigation = useNavigation();
 
-  const handleSignOut = async () => {
-    try {
-      await firebase.auth().signOut().then();
-      console.log("signedout");
-    } catch {
-      console.log(error);
-    }
-  };
-
   return (
     <SafeAreaView style={styles.container}>
       <TouchableOpacity onPress={handleSignOut}>
