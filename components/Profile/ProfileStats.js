@@ -16,7 +16,7 @@ import {
   MaterialCommunityIcons,
   FontAwesome5,
 } from "@expo/vector-icons";
-const ProfileStats = ({ profilePicture }) => (
+const ProfileStats = ({ profilePicture, postCount, followers, following }) => (
   <View style={{ marginTop: 20 }}>
     <View style={{ flexDirection: "row", alignItems: "center" }}>
       <Image
@@ -33,7 +33,7 @@ const ProfileStats = ({ profilePicture }) => (
       />
       <View style={{ marginRight: 30, alignItems: "center" }}>
         <Text style={{ color: "white", fontWeight: "700", fontSize: 18 }}>
-          0
+          {postCount}
         </Text>
         <Text style={{ color: "white", fontWeight: "500", fontSize: 15 }}>
           Posts
@@ -41,7 +41,7 @@ const ProfileStats = ({ profilePicture }) => (
       </View>
       <View style={{ marginRight: 30, alignItems: "center" }}>
         <Text style={{ color: "white", fontWeight: "700", fontSize: 18 }}>
-          0
+          {followers}
         </Text>
         <Text style={{ color: "white", fontWeight: "500", fontSize: 13 }}>
           Followers
@@ -49,7 +49,7 @@ const ProfileStats = ({ profilePicture }) => (
       </View>
       <View style={{ marginRight: 30, alignItems: "center" }}>
         <Text style={{ color: "white", fontWeight: "700", fontSize: 18 }}>
-          0
+          {following}
         </Text>
         <Text style={{ color: "white", fontWeight: "500", fontSize: 15 }}>
           Following

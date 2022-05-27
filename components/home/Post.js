@@ -11,12 +11,13 @@ import { MaterialCommunityIcons, FontAwesome } from "@expo/vector-icons";
 import firebase from "../../firebase";
 import { useNavigation } from "@react-navigation/native";
 const Post = ({ post }) => {
+  console.log(post);
   const handleCommentSectionCall = () =>
     navigation.navigate("CommentSection", post);
   const navigation = useNavigation();
   return (
     <View>
-      <Postheader posterPic={post.profilepic} posterUsername={post.user} />
+      <Postheader post={post} navigation={navigation} />
       <ScrollView minimumZoomScale={1} maximumZoomScale={5}>
         <Image
           source={{
@@ -150,15 +151,33 @@ const PostReact = ({ post, commentSectionCalled }) => {
   );
 };
 
-const Postheader = ({ posterPic, posterUsername }) => {
+const Postheader = ({ post, navigation }) => {
   return (
     <View style={styles.HeaderContainer}>
       <View style={{ flexDirection: "row", alignItems: "center" }}>
-        <TouchableOpacity>
-          <Image source={{ uri: posterPic }} style={styles.posterImage} />
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate(
+              post.owner_email == firebase.auth().currentUser.email
+                ? "ProfileScreen"
+                : "UserProfile",
+              post.owner_email
+            )
+          }
+        >
+          <Image source={{ uri: post.profilepic }} style={styles.posterImage} />
         </TouchableOpacity>
-        <TouchableOpacity>
-          <Text style={styles.posterUsername}>{posterUsername}</Text>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate(
+              post.owner_email == firebase.auth().currentUser.email
+                ? "ProfileScreen"
+                : "UserProfile",
+              post.owner_email
+            )
+          }
+        >
+          <Text style={styles.posterUsername}>{post.user}</Text>
         </TouchableOpacity>
       </View>
       <TouchableOpacity>

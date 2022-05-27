@@ -14,7 +14,7 @@ const Header = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <TouchableOpacity onPress={handleSignOut}>
+      <TouchableOpacity>
         <Image
           style={styles.logo}
           source={require("../../assets/header-logo.png")}

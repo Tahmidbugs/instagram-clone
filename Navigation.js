@@ -12,6 +12,7 @@ import MakeProfile from "./screens/MakeProfile";
 import EditProfile from "./screens/EditProfile";
 import CommentSection from "./screens/CommentSection";
 import SearchScreen from "./screens/SearchScreen";
+import UserProfile from "./screens/UserProfile";
 const Stack = createNativeStackNavigator();
 
 const screenOptions = {
@@ -30,6 +31,7 @@ export const SignedInStack = () => {
         <Stack.Screen name="ViewPost" component={ViewPost} />
         <Stack.Screen name="CommentSection" component={CommentSection} />
         <Stack.Screen name="SearchScreen" component={SearchScreen} />
+        <Stack.Screen name="UserProfile" component={UserProfile} />
       </Stack.Navigator>
     </NavigationContainer>
   );

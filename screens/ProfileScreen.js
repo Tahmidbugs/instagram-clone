@@ -20,22 +20,22 @@ import BottomTab from "../components/home/BottomTab";
 const ProfileScreen = () => {
   const [currentLoggedInUser, setCurrentLoggedInUser] = React.useState(null);
   const [modalVisible, setModalVisible] = React.useState(false);
+  const [postCount, setPostCount] = React.useState(0);
   const navigation = useNavigation();
   const getUserName = () => {
     const user = firebase.auth().currentUser;
     const db = firebase.firestore();
-    const unsubscribe = db
-      .collection("users")
-      .where("owner_uid", "==", user.uid)
-      .limit(1)
-      .onSnapshot((snapshot) => {
-        snapshot.docs.map((doc) => {
-          setCurrentLoggedInUser({
-            username: doc.data().username,
-            profilePicture: doc.data().profile_picture,
-            name: doc.data().name,
-            bio: doc.data().bio,
-          });
+    const unsubscribe = db;
+    db.collection("users")
+      .doc(user.email)
+      .onSnapshot((doc) => {
+        setCurrentLoggedInUser({
+          username: doc.data().username,
+          profilePicture: doc.data().profile_picture,
+          name: doc.data().name,
+          bio: doc.data().bio,
+          followers: doc.data().followers,
+          following: doc.data().following,
         });
       });
 
@@ -53,6 +53,15 @@ const ProfileScreen = () => {
       .onSnapshot((snapshot) => {
         setPosts(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
       });
+
+    db.collection("users")
+      .doc(firebase.auth().currentUser.email)
+      .collection("posts")
+      .get()
+      .then((snap) => {
+        setPostCount(snap.size);
+      });
+    console.log("Post count is: ", postCount);
   };
   React.useEffect(() => {
     getUserName();
@@ -87,7 +96,12 @@ const ProfileScreen = () => {
               handleModalVisibility={handleModalVisibility}
             />
           </Modal>
-          <ProfileStats profilePicture={currentLoggedInUser.profilePicture} />
+          <ProfileStats
+            profilePicture={currentLoggedInUser.profilePicture}
+            postCount={postCount}
+            following={currentLoggedInUser.following}
+            followers={currentLoggedInUser.followers}
+          />
           <ProfileBioandEdit
             name={currentLoggedInUser.name}
             bio={currentLoggedInUser.bio}
