@@ -81,9 +81,9 @@ const bottomTabIcons = [
   {
     name: "Profile",
     active:
-      "https://instagram.ftpa1-2.fna.fbcdn.net/v/t51.2885-19/249865761_119727660487552_7484151078639541787_n.jpg?stp=dst-jpg_s320x320&_nc_ht=instagram.ftpa1-2.fna.fbcdn.net&_nc_cat=104&_nc_ohc=KOJDDmcO_bIAX_vs7dC&edm=ABfd0MgBAAAA&ccb=7-5&oh=00_AT_sbPSGZS1Fqbe9osKVARJy3YDaC8rt3hcDuaV2hh6K4w&oe=6293C255&_nc_sid=7bff83",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfHXJexU8T3fYobb9B7aPWEeXa1scKM4cweQ&usqp=CAU",
     inactive:
-      "https://instagram.ftpa1-2.fna.fbcdn.net/v/t51.2885-19/249865761_119727660487552_7484151078639541787_n.jpg?stp=dst-jpg_s320x320&_nc_ht=instagram.ftpa1-2.fna.fbcdn.net&_nc_cat=104&_nc_ohc=KOJDDmcO_bIAX_vs7dC&edm=ABfd0MgBAAAA&ccb=7-5&oh=00_AT_sbPSGZS1Fqbe9osKVARJy3YDaC8rt3hcDuaV2hh6K4w&oe=6293C255&_nc_sid=7bff83",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfHXJexU8T3fYobb9B7aPWEeXa1scKM4cweQ&usqp=CAU",
     navigation: "ProfileScreen",
   },
 ];

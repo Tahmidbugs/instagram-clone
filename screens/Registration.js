@@ -19,7 +19,7 @@ const Registration = ({ navigation }) => {
       <View>
         <Image
           source={require("../assets/header-logo.png")}
-          style={{ width: 200, height: 70, alignSelf: "center" }}
+          style={{ width: 210, height: 72, alignSelf: "center" }}
         />
         <Forms navigation={navigation} />
         <TouchableOpacity onPress={() => navigation.navigate("LoginScreen")}>
@@ -56,11 +56,6 @@ const Forms = ({ navigation }) => {
           "https://storage.googleapis.com/ares-profile-pictures/hd/no__strings-143f671b112b152e6b012e1acf45a1b7_hd.jpg",
       });
       console.log("database added");
-      Alert.alert("", "Account created!", [
-        {
-          text: "cool",
-        },
-      ]);
     } catch (error) {
       alert(error);
     }

@@ -12,11 +12,50 @@ import firebase from "../../firebase";
 import { useNavigation } from "@react-navigation/native";
 const Post = ({ post }) => {
   console.log(post);
+  const [timepassed, setTimePassed] = React.useState(null);
+  const getTime = () => {
+    let str = new Date(post.createdAt.toDate());
+    let datenow = new Date();
+    let s = (datenow - str) / 1000;
+    s = Math.floor(s);
+    let m = Math.floor(s / 60);
+    let h = Math.floor(m / 60);
+    let d = Math.floor(h / 24);
+
+    console.log(
+      "Overall difference: ",
+      h,
+      " hours ",
+      m,
+      " minutes and ",
+      s,
+      " seconds"
+    );
+    let tp = "";
+
+    if (h < 1 && m < 1) {
+      tp = `${s} seconds`;
+    } else if (h < 1) {
+      tp = `${m} minutes`;
+    } else {
+      tp = h == 1 ? `${h} hour` : `${h} hours`;
+    }
+
+    console.log("time passed: ", tp);
+    setTimePassed(tp);
+  };
+
+  React.useEffect(
+    getTime,
+
+    []
+  );
+
   const handleCommentSectionCall = () =>
     navigation.navigate("CommentSection", post);
   const navigation = useNavigation();
   return (
-    <View>
+    <View style={{ marginBottom: 15 }}>
       <Postheader post={post} navigation={navigation} />
       <ScrollView minimumZoomScale={1} maximumZoomScale={5}>
         <Image
@@ -33,6 +72,7 @@ const Post = ({ post }) => {
         caption={post.caption}
         comments={post.comments}
         commentSectionCalled={handleCommentSectionCall}
+        timepassed={timepassed}
       />
       {/* <Comments posts={post} /> */}
     </View>
@@ -59,6 +99,7 @@ const PostReactions = ({
   caption,
   comments,
   commentSectionCalled,
+  timepassed,
 }) => (
   <View style={{ marginLeft: 10 }}>
     <Text style={{ color: "white", fontWeight: "600", marginBottom: 5 }}>
@@ -85,6 +126,9 @@ const PostReactions = ({
         </Text>
       )}
     </TouchableOpacity>
+    <Text style={{ color: "grey", fontSize: 10, marginTop: 5, marginLeft: 2 }}>
+      {timepassed} ago{" "}
+    </Text>
   </View>
 );
 

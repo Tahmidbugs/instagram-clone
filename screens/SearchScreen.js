@@ -80,11 +80,12 @@ const SearchScreen = () => {
                 style={{
                   color: "white",
                   padding: 15,
-                  fontSize: 16,
-                  fontWeight: "900",
+                  fontSize: 15,
+                  fontWeight: "600",
+                  marginLeft: 10,
                 }}
               >
-                Recommended
+                Suggested for you
               </Text>
             )}
             {users

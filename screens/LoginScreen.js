@@ -18,7 +18,7 @@ const LoginScreen = ({ navigation }) => {
       <View style={{}}>
         <Image
           source={require("../assets/header-logo.png")}
-          style={{ width: 200, height: 70, alignSelf: "center" }}
+          style={{ width: 210, height: 72, alignSelf: "center" }}
         />
         <Forms navigation={navigation} />
         <TouchableOpacity onPress={() => navigation.navigate("Registration")}>

@@ -225,7 +225,7 @@ const UserProfileBioandEdit = ({
       <View style={{ flexDirection: "row" }}>
         <TouchableOpacity
           style={{
-            backgroundColor: following ? "#0098FD" : "black",
+            backgroundColor: !following ? "#0098FD" : "black",
             height: 32,
             width: 150,
             marginLeft: 10,

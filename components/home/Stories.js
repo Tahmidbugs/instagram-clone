@@ -38,7 +38,7 @@ const Stories = ({ profilePicture, username }) => {
             </TouchableOpacity>
           </TouchableOpacity>
           <Text style={styles.username}>
-            {username.length > 11 ? username.slice(0, 10) + ".." : username}
+            {username.length > 11 ? username.slice(0, 11) + ".." : username}
           </Text>
         </View>
         <>
