@@ -11,7 +11,7 @@ import { MaterialCommunityIcons, FontAwesome } from "@expo/vector-icons";
 import firebase from "../../firebase";
 import { useNavigation } from "@react-navigation/native";
 const Post = ({ post }) => {
-  console.log(post);
+  // console.log(post);
   const [timepassed, setTimePassed] = React.useState(null);
   const getTime = () => {
     let str = new Date(post.createdAt.toDate());
@@ -56,42 +56,34 @@ const Post = ({ post }) => {
   const navigation = useNavigation();
   return (
     <View style={{ marginBottom: 15 }}>
-      <Postheader post={post} navigation={navigation} />
-      <ScrollView minimumZoomScale={1} maximumZoomScale={5}>
-        <Image
-          source={{
-            uri: post.imageURL,
-          }}
-          style={styles.postedImage}
-        />
-      </ScrollView>
-      <PostReact post={post} commentSectionCalled={handleCommentSectionCall} />
-      <PostReactions
-        likes_by_users={post.likes_by_users}
-        username={post.user}
-        caption={post.caption}
-        comments={post.comments}
-        commentSectionCalled={handleCommentSectionCall}
-        timepassed={timepassed}
-      />
-      {/* <Comments posts={post} /> */}
+      {timepassed && (
+        <>
+          <Postheader post={post} navigation={navigation} />
+          <ScrollView minimumZoomScale={1} maximumZoomScale={5}>
+            <Image
+              source={{
+                uri: post.imageURL,
+              }}
+              style={styles.postedImage}
+            />
+          </ScrollView>
+          <PostReact
+            post={post}
+            commentSectionCalled={handleCommentSectionCall}
+          />
+          <PostReactions
+            likes_by_users={post.likes_by_users}
+            username={post.user}
+            caption={post.caption}
+            comments={post.comments}
+            commentSectionCalled={handleCommentSectionCall}
+            timepassed={timepassed}
+          />
+        </>
+      )}
     </View>
   );
 };
-
-const Comments = ({ posts }) => (
-  <>
-    {posts.comments.map((comment, index) => (
-      <View key={index} style={{ marginLeft: 10, marginTop: 5 }}>
-        <Text style={{ color: "white", fontWeight: "600" }}>
-          {comment.user}
-          {"  "}
-          <Text style={{ fontWeight: "400" }}>{comment.comment}</Text>
-        </Text>
-      </View>
-    ))}
-  </>
-);
 
 const PostReactions = ({
   likes_by_users,

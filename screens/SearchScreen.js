@@ -107,7 +107,12 @@ const SearchScreen = () => {
                   }}
                   key={user.id}
                   onPress={() =>
-                    navigation.navigate("AccountScreen", { email: user.email })
+                    navigation.navigate(
+                      user.email == firebase.auth().currentUser.email
+                        ? "ProfileScreen"
+                        : "UserProfile",
+                      user.email.toLowerCase()
+                    )
                   }
                 >
                   <Image

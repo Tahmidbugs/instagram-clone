@@ -72,8 +72,6 @@ const ProfileScreen = () => {
     setModalVisible(!modalVisible);
   };
 
-  console.log("Modal visibility: ", modalVisible);
-
   const handleSignOut = async () => {
     try {
       await firebase.auth().signOut().then();
